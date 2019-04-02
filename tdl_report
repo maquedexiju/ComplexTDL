@@ -166,7 +166,7 @@ def main(args):
     elif format == 'excel': callback = Report.GenerateExcel(taskList, filePath=filePath, fileName=fileName, showParent=showParent)
 
     ## output
-    if output == True： print(callback)
+    if output == True: print(callback)
     
 if __name__ == '__main__':
     main(sys.argv[1:])
