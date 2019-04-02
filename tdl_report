@@ -30,6 +30,8 @@ NOTE: the period can be like:
 -s sort: how to sort the tasks, support: module, date
 -d only shows the tasks which will expire before the end date
 -q complex search, type -h -q for details
+
+-o output the result in the command line
 '''
 
 queryHelp = '''You can add any other conditions if you want to filt the result.
@@ -64,9 +66,10 @@ def main(args):
     deadline = False
     filePath = '.'
     fileName = 'report'
+    output = False
 
     # the parameters
-    shortParaList = 'hltafsdq'
+    shortParaList = 'hltafsdqo'
     longParaList = []
     args, opts = sysXXt.argument(args, shortParaList, longParaList)
 
@@ -143,6 +146,10 @@ def main(args):
         if opt == '-q':
             generalQ = arg
 
+        # output the result
+        if opt == '-o':
+            output = True
+
     if format == '': format = 'md list'
     if sort == '':  sort = 'module'
 
@@ -157,6 +164,9 @@ def main(args):
     if format == 'md list' or format == 'md list no': callback = Report.GenerateMD(taskList, format=format)
     elif format == 'md table': callback = Report.GenerateMD(taskList, format='md table')
     elif format == 'excel': callback = Report.GenerateExcel(taskList, filePath=filePath, fileName=fileName, showParent=showParent)
+
+    ## output
+    if output == True： print(callback)
     
 if __name__ == '__main__':
     main(sys.argv[1:])
